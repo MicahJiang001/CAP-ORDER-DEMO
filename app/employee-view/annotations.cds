@@ -56,24 +56,7 @@ annotate service.Employees with @(
     ],
 );
 
-annotate service.Employees with {
-    depart @Common.ValueList: {
-        $Type         : 'Common.ValueListType',
-        CollectionPath: 'Departs',
-        Parameters    : [
-            {
-                $Type            : 'Common.ValueListParameterInOut',
-                LocalDataProperty: depart_ID,
-                ValueListProperty: 'ID',
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'name',
-            },
-        ],
-    }
-};
-
+// filter bar
 annotate service.Employees with @(UI: {
     SelectionFields: [
         ID,

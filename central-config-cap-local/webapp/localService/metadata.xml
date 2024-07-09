@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="TradeSpendsService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="TradeSpends" EntityType="TradeSpendsService.TradeSpends">
+                    <NavigationPropertyBinding Path="pricingRuleAssignments" Target="TradeSpendPricingRuleAssignments"/>
+                    <NavigationPropertyBinding Path="texts" Target="TradeSpends_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="TradeSpends_texts"/>
+                </EntitySet>
+                <EntitySet Name="TradeSpendPricingRuleAssignments" EntityType="TradeSpendsService.TradeSpendPricingRuleAssignments">
+                    <NavigationPropertyBinding Path="pricingRuleRef" Target="PricingRules"/>
+                </EntitySet>
+                <EntitySet Name="PricingRules" EntityType="TradeSpendsService.PricingRules">
+                    <NavigationPropertyBinding Path="typeRef" Target="PricingRuleType"/>
+                    <NavigationPropertyBinding Path="modeRef" Target="PricingRuleMode"/>
+                    <NavigationPropertyBinding Path="pricingCapabilityRef" Target="PricingCapabilities"/>
+                    <NavigationPropertyBinding Path="qualifiers" Target="PricingRuleQualifier"/>
+                    <NavigationPropertyBinding Path="texts" Target="PricingRules_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="PricingRules_texts"/>
+                </EntitySet>
+                <EntitySet Name="PricingRuleMode" EntityType="TradeSpendsService.PricingRuleMode">
+                    <NavigationPropertyBinding Path="texts" Target="PricingRuleMode_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="PricingRuleMode_texts"/>
+                </EntitySet>
+                <EntitySet Name="PricingRuleType" EntityType="TradeSpendsService.PricingRuleType">
+                    <NavigationPropertyBinding Path="texts" Target="PricingRuleType_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="PricingRuleType_texts"/>
+                </EntitySet>
+                <EntitySet Name="PricingRuleQualifier" EntityType="TradeSpendsService.PricingRuleQualifier"/>
+                <EntitySet Name="PricingMethodTypes" EntityType="TradeSpendsService.PricingMethodTypes">
+                    <NavigationPropertyBinding Path="texts" Target="PricingMethodTypes_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="PricingMethodTypes_texts"/>
+                </EntitySet>
+                <EntitySet Name="PricingCapabilities" EntityType="TradeSpendsService.PricingCapabilities">
+                    <NavigationPropertyBinding Path="adapterTypeRef" Target="AdapterTypes"/>
+                    <NavigationPropertyBinding Path="spendTypeRef" Target="SpendTypes"/>
+                    <NavigationPropertyBinding Path="qualifiers" Target="PricingCapabilityQualifier"/>
+                </EntitySet>
+                <EntitySet Name="PricingCapabilityQualifier" EntityType="TradeSpendsService.PricingCapabilityQualifier"/>
+                <EntitySet Name="SpendTypes" EntityType="TradeSpendsService.SpendTypes">
+                    <NavigationPropertyBinding Path="texts" Target="SpendTypes_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="SpendTypes_texts"/>
+                </EntitySet>
+                <EntitySet Name="AdapterTypes" EntityType="TradeSpendsService.AdapterTypes">
+                    <NavigationPropertyBinding Path="pricingCapabilitiesRef" Target="PricingCapabilities"/>
+                    <NavigationPropertyBinding Path="texts" Target="AdapterTypes_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="AdapterTypes_texts"/>
+                </EntitySet>
+                <EntitySet Name="TradeSpends_texts" EntityType="TradeSpendsService.TradeSpends_texts"/>
+                <EntitySet Name="PricingRules_texts" EntityType="TradeSpendsService.PricingRules_texts"/>
+                <EntitySet Name="PricingRuleMode_texts" EntityType="TradeSpendsService.PricingRuleMode_texts"/>
+                <EntitySet Name="PricingRuleType_texts" EntityType="TradeSpendsService.PricingRuleType_texts"/>
+                <EntitySet Name="PricingMethodTypes_texts" EntityType="TradeSpendsService.PricingMethodTypes_texts"/>
+                <EntitySet Name="SpendTypes_texts" EntityType="TradeSpendsService.SpendTypes_texts"/>
+                <EntitySet Name="AdapterTypes_texts" EntityType="TradeSpendsService.AdapterTypes_texts"/>
+                <ActionImport Name="GetUsageInfo" Action="TradeSpendsService.GetUsageInfo"/>
+            </EntityContainer>
+            <EntityType Name="TradeSpends">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <Property Name="tradeSpendStatus" Type="Edm.String" MaxLength="50" Nullable="false" DefaultValue="ACTIVE"/>
+                <Property Name="tradeSpendCategory" Type="Edm.String" MaxLength="50" Nullable="false" DefaultValue="STP"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="usageCount" Type="Edm.Int64"/>
+                <NavigationProperty Name="pricingRuleAssignments" Type="Collection(TradeSpendsService.TradeSpendPricingRuleAssignments)"/>
+                <NavigationProperty Name="texts" Type="Collection(TradeSpendsService.TradeSpends_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="TradeSpendsService.TradeSpends_texts">
+                    <ReferentialConstraint Property="uuid" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="TradeSpendPricingRuleAssignments">
+                <Key>
+                    <PropertyRef Name="tradeSpend"/>
+                    <PropertyRef Name="pricingRule"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="tradeSpend" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="pricingRule" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <NavigationProperty Name="pricingRuleRef" Type="TradeSpendsService.PricingRules">
+                    <ReferentialConstraint Property="pricingRule" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+                <Property Name="pricingMethodType" Type="Edm.String" MaxLength="32"/>
+                <Property Name="position" Type="Edm.Int32"/>
+                <Property Name="usageCount" Type="Edm.Int64"/>
+                <Property Name="spendType" Type="Edm.String" MaxLength="32"/>
+                <Property Name="pricingCapability" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="PricingRules">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="id" Type="Edm.String" MaxLength="50"/>
+                <Property Name="type" Type="Edm.String" MaxLength="32"/>
+                <NavigationProperty Name="typeRef" Type="TradeSpendsService.PricingRuleType">
+                    <ReferentialConstraint Property="type" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+                <Property Name="mode" Type="Edm.String" MaxLength="32"/>
+                <NavigationProperty Name="modeRef" Type="TradeSpendsService.PricingRuleMode">
+                    <ReferentialConstraint Property="mode" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <Property Name="pricingRuleStatus" Type="Edm.String" MaxLength="50" Nullable="false" DefaultValue="ACTIVE"/>
+                <Property Name="dataFormat" Type="Edm.String" MaxLength="80"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="pricingCapability" Type="Edm.String" MaxLength="32"/>
+                <NavigationProperty Name="pricingCapabilityRef" Type="TradeSpendsService.PricingCapabilities">
+                    <ReferentialConstraint Property="pricingCapability" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+                <NavigationProperty Name="qualifiers" Type="Collection(TradeSpendsService.PricingRuleQualifier)"/>
+                <Property Name="usageCount" Type="Edm.Int64" Nullable="false" DefaultValue="0"/>
+                <NavigationProperty Name="texts" Type="Collection(TradeSpendsService.PricingRules_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="TradeSpendsService.PricingRules_texts">
+                    <ReferentialConstraint Property="uuid" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+                <Property Name="adapterType" Type="Edm.String" MaxLength="32"/>
+                <Property Name="spendType" Type="Edm.String" MaxLength="32"/>
+                <Property Name="spendTypeName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="pricingRuleTypeCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="pricingRuleTypeName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="pricingRuleModeCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="pricingRuleModeName" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="PricingRuleMode">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <NavigationProperty Name="texts" Type="Collection(TradeSpendsService.PricingRuleMode_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="TradeSpendsService.PricingRuleMode_texts">
+                    <ReferentialConstraint Property="uuid" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PricingRuleType">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <NavigationProperty Name="texts" Type="Collection(TradeSpendsService.PricingRuleType_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="TradeSpendsService.PricingRuleType_texts">
+                    <ReferentialConstraint Property="uuid" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PricingRuleQualifier">
+                <Key>
+                    <PropertyRef Name="pricingRule"/>
+                    <PropertyRef Name="pricingQualifier"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="pricingRule" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="pricingQualifier" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="pricingQualifierName" Type="Edm.String" MaxLength="32"/>
+                <Property Name="value" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="position" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="PricingMethodTypes">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <Property Name="type" Type="Edm.String" MaxLength="32"/>
+                <Property Name="mode" Type="Edm.String" MaxLength="32"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="texts" Type="Collection(TradeSpendsService.PricingMethodTypes_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="TradeSpendsService.PricingMethodTypes_texts">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PricingCapabilities">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="50"/>
+                <Property Name="adapterType" Type="Edm.String" MaxLength="32"/>
+                <NavigationProperty Name="adapterTypeRef" Type="TradeSpendsService.AdapterTypes" Partner="pricingCapabilitiesRef">
+                    <ReferentialConstraint Property="adapterType" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+                <Property Name="spendType" Type="Edm.String" MaxLength="32"/>
+                <NavigationProperty Name="spendTypeRef" Type="TradeSpendsService.SpendTypes">
+                    <ReferentialConstraint Property="spendType" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <Property Name="pricingCapabilityStatus" Type="Edm.String" MaxLength="50" Nullable="false" DefaultValue="ACTIVE"/>
+                <NavigationProperty Name="qualifiers" Type="Collection(TradeSpendsService.PricingCapabilityQualifier)"/>
+            </EntityType>
+            <EntityType Name="PricingCapabilityQualifier">
+                <Key>
+                    <PropertyRef Name="pricingCapability"/>
+                    <PropertyRef Name="pricingQualifier"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="pricingCapability" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="pricingQualifier" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="pricingQualifierName" Type="Edm.String" MaxLength="32"/>
+                <Property Name="value" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="position" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="SpendTypes">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <NavigationProperty Name="texts" Type="Collection(TradeSpendsService.SpendTypes_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="TradeSpendsService.SpendTypes_texts">
+                    <ReferentialConstraint Property="uuid" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="AdapterTypes">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="predelivered" Type="Edm.Boolean"/>
+                <Property Name="adapterTypeStatus" Type="Edm.String" MaxLength="50" Nullable="false" DefaultValue="ACTIVE"/>
+                <Property Name="protocol" Type="Edm.String" MaxLength="50"/>
+                <Property Name="destinationName" Type="Edm.String" MaxLength="200"/>
+                <NavigationProperty Name="pricingCapabilitiesRef" Type="Collection(TradeSpendsService.PricingCapabilities)" Partner="adapterTypeRef"/>
+                <NavigationProperty Name="texts" Type="Collection(TradeSpendsService.AdapterTypes_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="TradeSpendsService.AdapterTypes_texts">
+                    <ReferentialConstraint Property="uuid" ReferencedProperty="uuid"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="TradeSpends_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="PricingRules_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="PricingRuleMode_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="PricingRuleType_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="PricingMethodTypes_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="SpendTypes_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="AdapterTypes_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="uuid"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="uuid" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <ComplexType Name="UsageRespDTO">
+                <Property Name="boClassName" Type="Edm.String"/>
+                <Property Name="boKeys" Type="Collection(Edm.String)" Nullable="false"/>
+                <Property Name="usageCount" Type="Edm.Int64"/>
+            </ComplexType>
+            <ComplexType Name="return_TradeSpendsService_GetUsageInfo">
+                <Property Name="rootBoKey" Type="Edm.String"/>
+                <Property Name="usages" Type="Collection(TradeSpendsService.UsageRespDTO)" Nullable="false"/>
+            </ComplexType>
+            <Action Name="GetUsageInfo" IsBound="false">
+                <Parameter Name="boClassName" Type="Edm.String"/>
+                <Parameter Name="rootBoKeys" Type="Collection(Edm.String)" Nullable="false"/>
+                <ReturnType Type="Collection(TradeSpendsService.return_TradeSpendsService_GetUsageInfo)" Nullable="false"/>
+            </Action>
+            <Annotations Target="TradeSpendsService.TradeSpends">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpends/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpends/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpends/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpends/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpends/usageCount">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpendPricingRuleAssignments">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpendPricingRuleAssignments/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpendPricingRuleAssignments/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpendPricingRuleAssignments/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpendPricingRuleAssignments/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRules">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRules/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRules/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRules/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRules/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleMode">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleMode/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleMode/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleMode/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleMode/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleType">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleType/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleType/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleType/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleType/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleQualifier">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleQualifier/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleQualifier/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleQualifier/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleQualifier/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilities">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilities/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilities/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilities/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilities/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilityQualifier">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilityQualifier/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilityQualifier/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilityQualifier/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingCapabilityQualifier/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.SpendTypes">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.SpendTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.SpendTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.SpendTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.SpendTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.AdapterTypes">
+                <Annotation Term="Core.Description" String="Aspect to capture changes by user and name&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#aspect-managed"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.AdapterTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.AdapterTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.AdapterTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.AdapterTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="A user's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.TradeSpends_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRules_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleMode_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingRuleType_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.PricingMethodTypes_texts/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.SpendTypes_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="TradeSpendsService.AdapterTypes_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
